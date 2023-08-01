@@ -1,17 +1,25 @@
+// Récupére toutes les images de la galerie
 const imagesGallery = document.querySelectorAll(".gallery-item");
 
-const allTags = new Set();
+// Stocke tous les tags disponibles
+const allTags = new Set(); // Utilise Set pour éviter les doublons de tags
 imagesGallery.forEach(image => {
-    const tags = image.dataset.galleryTag.split(' ');
-    tags.forEach(tag => allTags.add(tag));
+    // Récupére le tag directement depuis l'attribut "data-gallery-tag"
+    const tag = image.dataset.galleryTag;
+    // Ajoute le tag à "allTags"
+    allTags.add(tag);
 });
 
+// Récupére les boutons de filtre de la galerie
 const filterButtonsContainer = document.querySelector('.filter-buttons-container');
+
+// Crée un bouton "Tous" pour afficher toutes les images
 const allButton = document.createElement('button');
 allButton.textContent = 'Tous';
 allButton.dataset.filter = 'all';
 filterButtonsContainer.appendChild(allButton);
 
+// Crée des boutons pour chaque tag
 allTags.forEach(tag => {
     const button = document.createElement('button');
     button.textContent = tag;
@@ -19,16 +27,33 @@ allTags.forEach(tag => {
     filterButtonsContainer.appendChild(button);
 });
 
+// Fonction pour sélectionner le tag et ajouter le fond vert aux boutons
+function selectTag(button) {
+    filterButtons.forEach(btn => {
+        if (btn === button) {
+            btn.classList.add('selectBtnTag');
+        } else {
+            btn.classList.remove('selectBtnTag');
+        }
+    });
+}
+
+// Sélectionne tous les boutons de filtre
 const filterButtons = document.querySelectorAll('.filter-buttons-container button');
 filterButtons.forEach(button => {
     button.addEventListener('click', () => {
+        selectTag(button);
+
+        // Récupére le filtre sélectionné
         const filter = button.dataset.filter;
+
+        // Filtre les images en fonction du filtre sélectionné
         if (filter === 'all') {
             imagesGallery.forEach(image => image.style.display = 'block');
         } else {
             imagesGallery.forEach(image => {
-                const tags = image.dataset.galleryTag.split(' ');
-                if (tags.includes(filter)) {
+                const tag = image.dataset.galleryTag;
+                if (tag.includes(filter)) {
                     image.style.display = 'block';
                 } else {
                     image.style.display = 'none';
@@ -36,17 +61,34 @@ filterButtons.forEach(button => {
             });
         }
 
+        // Affiche la galerie avec une gille de 3 colonnes
         const gallery = document.querySelector('.gallery');
         gallery.style.display = 'grid';
         gallery.style.gridTemplateColumns = 'repeat(3, 1fr)';
         gallery.style.gridGap = '10px';
+
+        // Mise à jour du carrousel en fonction du tag sélectionné
+        updateCarousel(filter);
     });
 });
 
+// Fonction pour mettre à jour le filtre et le carrousel en fonction du tag sélectionné
+let currentFilter = 'all'; // Par défaut, affiche toutes les images
+function updateCarousel(filter) {
+    currentFilter = filter;
+    showImage(currentIndex);
+}
+
+// Sélectionne le bouton "Tous" par défaut au chargement de la page
+const defaultSelectButton = document.querySelector('.filter-buttons-container button[data-filter="all"]');
+selectTag(defaultSelectButton);
+
+// Récupére les éléments de la modale
 const modal = document.querySelector('.modal');
 const modalImg = document.querySelector('.modal-content');
 const darkBackground = document.getElementById('dark-background');
 
+// Fonction pour ouvrir la modale avec l'image correspondant à l'index 
 function openModal(index) {
     modal.style.display = 'block';
     darkBackground.style.display = 'block';
@@ -62,6 +104,7 @@ function openModal(index) {
     document.body.style.overflow = 'hidden';
 }
 
+// fonction pour fermer la modale
 function closeModal() {
     // Supprime la classe .show pour activer l'animation de montée
     modal.classList.remove('show');
@@ -87,77 +130,56 @@ imagesGallery.forEach((image, index) => {
 
 // Lorsque la modale est cliquée
 modal.addEventListener('click', (event) => {
-    // Si l'élément cliqué est la modale (et non son contenu) elle-même en comparant avec l'événement actuel
+    // Si l'élément cliqué est la modale (et non son contenu) en comparant avec l'événement actuel
     if (event.target === modal) {
         // Appelle la fonction closeModal pour la fermer
         closeModal();
     }
 });
 
+// Récupére les boutons précédent et suivant pour naviguer dans le carrousel
 const prevBtn = document.querySelector('.prev-btn');
 const nextBtn = document.querySelector('.next-btn');
 let currentIndex = 0;
 
+// Fonction pour afficher l'image correspondant à l'index 
 function showImage(index) {
-    modalImg.src = imagesGallery[index].src;
+    const image = imagesGallery[index];
+    const tag = image.dataset.galleryTag;
+
+    // Vérifie si l'image appartient au filtre actuel ou si le filtre est 'all'
+    if (tag.includes(currentFilter) || currentFilter === 'all') {
+        modalImg.src = image.src;
+        currentIndex = index;
+    }
 }
 
+// Écouteur du clic pour le bouton précédent
 prevBtn.addEventListener('click', () => {
-    const currentTag = imagesGallery[currentIndex].dataset.galleryTag.split(' ');
-    if (currentTag.includes('all')) {
-        currentIndex = (currentIndex - 1 + imagesGallery.length) % imagesGallery.length;
-    } else {
-        let prevIndex = currentIndex - 1;
-        while (prevIndex >= 0) {
-            const prevTags = imagesGallery[prevIndex].dataset.galleryTag.split(' ');
-            if (prevTags.some(tag => currentTag.includes(tag))) {
-                currentIndex = prevIndex;
-                break;
-            }
-            prevIndex --;
+    // Utilisation du modulo % pour une navigation circulaire des images de la galerie
+    // Évite les dépassements d'index et assure une boucle sans fin
+    let prevIndex = (currentIndex - 1 + imagesGallery.length) % imagesGallery.length;
+    while (prevIndex !== currentIndex) {
+        const image = imagesGallery[prevIndex];
+        const tag = image.dataset.galleryTag;
+        if (tag.includes(currentFilter) || currentFilter === 'all') {
+            showImage(prevIndex);
+            break;
         }
-
-        if (prevIndex < 0) {
-            prevIndex = imagesGallery.length - 1;
-            while (prevIndex >= 0) {
-                const prevTags = imagesGallery[prevIndex].dataset.galleryTag.split(' ');
-                if (prevTags.some(tag => currentTag.includes(tag))) {
-                    currentIndex = prevIndex;
-                    break;
-                }
-                prevIndex --;
-            }
-        }
+        prevIndex = (prevIndex - 1 + imagesGallery.length) % imagesGallery.length;
     }
-    showImage(currentIndex);
 });
 
+// Écouteur du clic pour le bouton suivant
 nextBtn.addEventListener('click', () => {
-    const currentTag = imagesGallery[currentIndex].dataset.galleryTag.split(' ');
-    if (currentTag.includes('all')) {
-        currentIndex = (currentIndex + 1) % imagesGallery.length;
-    } else {
-        let nextIndex = currentIndex + 1;
-        while (nextIndex < imagesGallery.length) {
-            const nextTags = imagesGallery[nextIndex].dataset.galleryTag.split(' ');
-            if (nextTags.some(tag => currentTag.includes(tag))) {
-                currentIndex = nextIndex;
-                break;
-            }
-            nextIndex ++;
+    let nextIndex = (currentIndex + 1) % imagesGallery.length;
+    while (nextIndex !== currentIndex) {
+        const image = imagesGallery[nextIndex];
+        const tag = image.dataset.galleryTag;
+        if (tag.includes(currentFilter) || currentFilter === 'all') {
+            showImage(nextIndex);
+            break;
         }
-
-        if (nextIndex === imagesGallery.length) {
-            nextIndex = 0;
-            while (nextIndex < imagesGallery.length) {
-                const nextTags = imagesGallery[nextIndex].dataset.galleryTag.split(' ');
-                if (nextTags.some(tag => currentTag.includes(tag))) {
-                    currentIndex = nextIndex;
-                    break;
-                }
-                nextIndex ++;
-            }
-        }
+        nextIndex = (nextIndex + 1) % imagesGallery.length;
     }
-    showImage(currentIndex);
 });
