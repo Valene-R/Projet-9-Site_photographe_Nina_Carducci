@@ -441,6 +441,9 @@ input[type="submit"] {
 	.gallery {
 		display: unset !important;
 	}
+	.gallery-item {
+		max-height: 845px;
+	}
 }
 
 @media all and (max-width: 650px) {
@@ -482,5 +485,20 @@ input[type="submit"] {
 	.center-filters-container {
 		margin: auto;
 		text-align: center;
+	}
+	.gallery-item {
+		height: 550px;
+	}
+}
+
+@media all and (max-width: 500px) {
+	.gallery-item {
+		height: 508px;
+	}
+}
+
+@media all and (max-width: 400px) {
+	.gallery-item {
+		height: 375px;
 	}
 }
