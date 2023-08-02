@@ -90,6 +90,8 @@ body {
 	font-weight: 800;
 	font-style: italic;
 	width: 60%;
+	display: block;
+	line-height: 1.2;
 }
 
 #about-me p {
@@ -164,7 +166,7 @@ body {
 	font-family: Spectral;
 	font-style: italic;
 	font-weight: 300;
-
+	font-size: 2.5rem;
 }
 
 .quote__author {
@@ -363,6 +365,13 @@ input[type="submit"] {
     justify-content: center;
 	margin: 24px 0;
 }
+
+footer {
+	display: flex;
+	justify-content: center;
+	margin: 20px;
+}
+
 
 /** RESPONSIVE **/
 @media all and (max-width: 1180px) {
