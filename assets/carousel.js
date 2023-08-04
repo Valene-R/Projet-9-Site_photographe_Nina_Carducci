@@ -14,6 +14,12 @@ const modalImg = document.querySelector('.modal-content');
 const prevBtn = document.querySelector('.prev-btn');
 const nextBtn = document.querySelector('.next-btn');
 
+// Récupére le conteneur des boutons de filtre
+const filterButtonsContainer = document.querySelector('.filter-buttons-container');
+
+// Récupére l'id de l'arrière-plan sombre
+const darkBackground = document.getElementById('dark-background');
+
 let currentIndex = 0;
 let currentFilter = 'all'; // Par défaut, affiche toutes les images
 
@@ -43,9 +49,6 @@ function getAllTags(imagesGallery) {
  * @param {Set} allTags - Un Set contenant tous les tags 
  */
 function createFilterButtons(allTags) {
-    // Sélectionne le conteneur des boutons de filtre
-    const filterButtonsContainer = document.querySelector('.filter-buttons-container');
-    
     // Crée un bouton "Tous" pour afficher toutes les images
     const allButton = document.createElement('button');
     allButton.textContent = 'Tous';
@@ -102,7 +105,6 @@ function selectTag(button) {
  * @param {string} filter - Le tag du filtre sélectionné 
  */
 function filterImages(filter) {
-    const imagesGallery = document.querySelectorAll(".gallery-item");
     imagesGallery.forEach(image => {
         const tag = image.dataset.galleryTag;
         if (filter === 'all' || tag.includes(filter)) {
@@ -111,12 +113,6 @@ function filterImages(filter) {
             image.style.display = 'none';
         }
     });
-
-    // Affiche la galerie avec une grille de 3 colonnes
-    const gallery = document.querySelector('.gallery');
-    gallery.style.display = 'grid';
-    gallery.style.gridTemplateColumns = 'repeat(3, 1fr)';
-    gallery.style.gridGap = '10px';
 }
 
 /**
@@ -133,10 +129,8 @@ function updateCarousel(filter) {
  * @param {number} index - Index de l'image en cours
  */
 function openModal(index) {
-    const modal = document.querySelector('.modal');
-    const darkBackground = document.getElementById('dark-background');
-
     modal.style.display = 'block';
+
     // Affiche l'arrière-plan sombre
     darkBackground.style.display = 'block';
     currentIndex = index;
@@ -145,7 +139,7 @@ function openModal(index) {
     // Attendre un court délai pour activer l'animation de descente en ajoutant la classe .show
     setTimeout(() => {
         modal.classList.add('show');
-    }, 50);// Durée de l'animation de descente (0.05s)
+    }, 50); // Durée de l'animation de descente (0.05s)
 
     // Empêche le défilement du body lorsque la modale est ouverte
     document.body.style.overflow = 'hidden';
@@ -155,9 +149,6 @@ function openModal(index) {
  * Fermeture de la modale
  */
 function closeModal() {
-    const modal = document.querySelector('.modal');
-    const darkBackground = document.getElementById('dark-background');
-
     // Supprime la classe .show pour activer l'animation de montée
     modal.classList.remove('show');
 
@@ -169,7 +160,7 @@ function closeModal() {
 
         // Rétablit le défilement du body lorsque la modale est fermée
         document.body.style.overflow = 'auto';
-    }, 300);// Durée de l'animation de montée (0.3s)
+    }, 300); // Durée de l'animation de montée (0.3s)
 }
 
 /**
@@ -237,4 +228,3 @@ nextBtn.addEventListener('click', () => {
         nextIndex = (nextIndex + 1) % imagesGallery.length;
     }
 });
-
