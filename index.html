@@ -48,7 +48,7 @@
 						<a href="#contact">Contact</a>
 					</li>
 					<li>
-						<a class="social-link" href="https://www.instagram.com/ninacarducci.photo/?hl=fr" target="_blank">
+						<a class="social-link" href="https://www.instagram.com/ninacarducci.photo/?hl=fr" target="_blank" aria-label="Profil Instagram de Nina Carducci">
 							<img src="assets/images/logo-instagram.png" width="20" height="20" alt="Logo instagram">
 						</a>
 					</li>
@@ -59,11 +59,11 @@
 			<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
 				<div class="carousel-indicators">
 					<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
-						class="active" aria-current="true" aria-label="Slide 1"></button>
+						class="active" aria-current="true" aria-label="Slide 1 : Un homme d'affaires traversant un passage piéton"></button>
 					<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
-						aria-label="Slide 2"></button>
+						aria-label="Slide 2 : Deux hommes levant le bras dans une foule lors d'un concert"></button>
 					<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
-						aria-label="Slide 3"></button>
+						aria-label="Slide 3 : Le mari embrasse la mariée devant les invités"></button>
 				</div>
 				<div class="carousel-inner">
 					<div class="carousel-item active" itemscope itemtype="https://schema.org/ImageObject">
@@ -152,7 +152,7 @@
 				<div id="dark-background" class="dark-background"></div>
 				<div class="modal">
 					<div class="modal-container">
-						<img class="modal-content" alt="Image agrandie" />
+						<img class="modal-content" alt="Image agrandie de la galerie" />
 						<button class="prev-btn" aria-label="Flèche vers la gauche - Bouton Précédent">&lt;</button>
 						<button class="next-btn" aria-label="Flèche vers la droite - Bouton Suivant">&gt;</button>
 					</div>
@@ -179,8 +179,8 @@
 						<p itemprop="description">Pour capturer vos moments les plus précieux et garder un souvenir impérissable. Je me déplace en
 							Île-de-France pour réaliser vos photos</p>
 					</div>
-					<div class="service__price" itemprop="price">
-						<p class="price">350€/demi journée</p>
+					<div class="service__price">
+						<h4 class="price">350€/demi journée</h4>
 						<span>Matériel, déplacement inclus</span>
 					</div>
 				</article>
@@ -190,8 +190,8 @@
 						<p itemprop="description">Vous souhaitez retoucher vos photos pour un résultat professionnel ? Bénéficier d’un rendu
 							optimal pour vos publications</p>
 					</div>
-					<div class="service__price" itemprop="price">
-						<p class="price">50€/photo</p>
+					<div class="service__price">
+						<h4 class="price">50€/photo</h4>
 						<span>2 AR par photo</span>
 					</div>
 				</article>
@@ -201,8 +201,8 @@
 						<p itemprop="description">Partagez avec vos proches et vos clients les photos des moments partagés ensemble à travers un
 							album photo personnalisé</p>
 					</div>
-					<div class="service__price" itemprop="price">
-						<p class="price">400€ album A4</p>
+					<div class="service__price">
+						<h4 class="price">400€ album A4</h4>
 						<span>30 pages recto/verso</span>
 					</div>
 				</article>
@@ -226,12 +226,12 @@
 					<h2>Une question ? Une demande de devis ?</h2>
 					<p>N’hésitez pas à m’écrire ! Je vous répondrais en moins de 24 heures</p>
 					<form action="" method="post">
-						<label>Nom</label>
-						<input type="text" name="nom" id="nom">
-						<label>Email</label>
-						<input type="email" name="email" id="email">
-						<label>Message</label>
-						<textarea name="message" id="message" cols="30" rows="10"></textarea>
+						<label for="nom">Nom</label>
+						<input type="text" name="nom" id="nom" required>
+						<label for="email">Email</label>
+						<input type="email" name="email" id="email" required>
+						<label for="message">Message</label>
+						<textarea name="message" id="message" cols="30" rows="10" required></textarea>
 						<input type="submit" value="Envoyer" />
 					</form>
 				</div>
@@ -246,7 +246,7 @@
 						</p>
 					</div>
 					<p>
-						Téléphone : <a href="tel:+33556677889"><span itemprop="telephone" content="+33556677889">+335 56 67 78 89</span></a>
+						Téléphone : <a class="phone" href="tel:+33556677889"><span itemprop="telephone" content="+33556677889">+335 56 67 78 89</span></a>
 					</p>
 					<p >
 						Horaires d'ouverture : <span itemprop="openingHours" content="Mo,Tu,We,Th,Fr 10:00-19:00"> du lundi au vendredi de 10h à 19h</span>

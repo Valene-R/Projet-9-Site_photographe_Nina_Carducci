@@ -10,6 +10,7 @@ body{max-width:1920px;margin:auto}
 .nav ul{display:flex;list-style-type:none;font-size:14px;margin-bottom:0}
 .nav li{padding-inline:10px}
 .nav a{text-decoration:none;color:#000}
+.nav a:hover{font-weight:700}
 .social-link img{width:20px;height:20px}
 #about{display:flex;background-color:#f6d2b8;padding-inline:100px;padding-block:100px;position:relative}
 .picture.left::before{content:' ';background-color:#e5975f;width:374px;height:329px;position:absolute;bottom:0;left:0;z-index:-1}
@@ -38,6 +39,7 @@ body{max-width:1920px;margin:auto}
 #contact{margin:auto;background-color:#d8d3a8;position:relative;padding-inline:100px;padding-block:100px}
 #contact .container{display:flex}
 .picture.right::before{content:' ';background-color:#beb45a;width:374px;height:329px;position:absolute;bottom:0;right:0;z-index:-1}
+.carousel-control-next:hover,.carousel-control-prev:hover{opacity:1}
 .form-container{flex:2}
 form{display:flex;flex-direction:column;width:70%;align-items:flex-start}
 form input{width:100%;background-color:transparent;border:solid 1px;height:2.5em;margin-bottom:20px}
@@ -54,11 +56,13 @@ input[type=submit]{background-color:#beb45a;padding:.5em 1em}
 .next-btn{right:-12px}
 .modal-container{position:relative;margin:auto;display:inline-block}
 .filter-buttons-container button{color:#000;background-color:#fff;border:none;padding:8px 16px}
-.filter-buttons-container button.selectBtnTag{color:#fff;background-color:#beb45a}
+.filter-buttons-container button.selectBtnTag{color:#000;background-color:#beb45a}
 .center-filters-container{display:flex;justify-content:center;margin:24px 0}
 .price{font-size:1.5rem;margin-bottom:8px}
 .contact__details{margin-top:30px}
 .picture.right img{display:flex;max-width:418px;max-height:418px;margin:auto;margin-top:114px}
+.phone{color:#000;text-decoration:none}
+.phone:hover{font-weight:700;font-size:18px}
 @media all and (max-width:1180px){
 .picture.right img{margin-top:50px}
 }
@@ -108,4 +112,8 @@ form{width:100%}
 }
 @media all and (max-width:400px){
 .gallery-item{height:374px;width:374px}
+}
+@media all and (max-width:374px) and (min-width:320px){
+.gallery-item{width:320px}
+.modal-content{width:300px}
 }

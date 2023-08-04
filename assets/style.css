@@ -78,6 +78,10 @@ body {
 	color: #000
 }
 
+.nav a:hover {
+	font-weight: bold;
+}
+
 .social-link img {
 	width: 20px;
 	height: 20px;
@@ -276,6 +280,11 @@ body {
 	z-index: -1;
 }
 
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+	opacity: 1;
+}
+
 .form-container {
 	flex : 2;
 
@@ -400,7 +409,7 @@ input[type="submit"] {
 }
 
 .filter-buttons-container button.selectBtnTag {
-	color: #FFF;
+	color: #000;
 	background-color: #BEB45A;
 }
 
@@ -427,6 +436,15 @@ input[type="submit"] {
 	margin-top: 114px;
 }
 
+.phone {
+	color: #000;
+	text-decoration: none;
+}
+
+.phone:hover {
+	font-weight: bold;
+	font-size: 18px;
+}
 
 /** RESPONSIVE **/
 @media all and (max-width: 1180px) {
@@ -590,5 +608,15 @@ input[type="submit"] {
 	.gallery-item {
 		height: 374px;
 		width: 374px;
+	}
+}
+
+/* media queries pour éviter la marge blanche à droite en dessous de 375px*/
+@media all and (max-width: 374px) and (min-width: 320px){
+	.gallery-item {
+		width: 320px;
+	}
+	.modal-content {
+		width: 300px;
 	}
 }
